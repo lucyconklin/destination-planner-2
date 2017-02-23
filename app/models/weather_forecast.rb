@@ -7,12 +7,11 @@ class WeatherForecast
               :weather_conditions
 
   def initialize(attributes)
-    byebug
     @day = attributes["date"]["day"]
     @weekday = attributes["date"]["weekday"]
     @month = attributes["date"]["month"]
-    @high_temp = attributes["low"]["fahrenheit"]
-    @low_temp = attributes["high"]["fahrenheit"]
+    @high_temp = attributes["high"]["fahrenheit"]
+    @low_temp = attributes["low"]["fahrenheit"]
     @weather_conditions = attributes["conditions"]
   end
 

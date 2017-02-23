@@ -31,12 +31,13 @@ describe 'As a user, when I visit "/"' do
   it "I should see the weather forecast for that destination" do
     visit destination_path(@destination_1.id)
 
-    expect(page).to have_selector('day', count: 10)
-    expect(page).to have_content('weekday')
-    expect(page).to have_content('month')
-    expect(page).to have_content('day')
-    expect(page).to have_content('high temp')
-    expect(page).to have_content('low temp')
-    expect(page).to have_content('weather conditions')
+    expect(page).to have_selector('.day', count: 10)
+
+    expect(page).to have_content('Wednesday')
+    expect(page).to have_content('2')
+    expect(page).to have_content('22')
+    expect(page).to have_content('57')
+    expect(page).to have_content('31')
+    expect(page).to have_content('Partly Cloudy')
   end
 end
