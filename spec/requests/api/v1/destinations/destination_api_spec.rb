@@ -20,6 +20,7 @@ describe "Destination API" do
     expect(destination["name"]).to eq("Denver")
     expect(destination["zip"]).to eq("80210")
     expect(destination["description"]).to eq("Mile High City")
+    expect(destination["image_url"]).to eq("/")
   end
 
   it "can get all destinations" do
@@ -34,28 +35,30 @@ describe "Destination API" do
     end
   end
 
-  xit "can create destination" do
+  it "can create destination" do
     attributes = { name: "Toledo",
                    zip: "1000",
                    description: "It's actually very lovely this time of year"}
 
-    post "/api/v1/destinations", body: { destination: attributes }
+    post "/api/v1/destinations", destination: attributes
 
     expect(Destination.count).to eq(3)
   end
 
-  xit "can edit destination" do
+  it "can edit destination" do
     attributes = { name: "Toledo",
                    zip: "1000",
                    description: "It's actually very lovely this time of year"}
 
-    put "/api/v1/destinations/1", body: { destination: attributes }
+    put "/api/v1/destinations/#{@destination_1.id}", destination: attributes
 
     expect(Destination.count).to eq(2)
     expect(Destination.pluck(:name)).not_to include("Denver")
   end
 
-  xit "can delete destination" do
+  it "can delete destination" do
+    delete "/api/v1/destinations/#{@destination_1.id}"
 
+    expect(Destination.count).to eq(1)
   end
 end
