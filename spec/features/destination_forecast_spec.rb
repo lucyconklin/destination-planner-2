@@ -7,23 +7,36 @@ describe 'As a user, when I visit "/"' do
                        description: "Mile High City",
                        image_url: "/" )
    @destination_2 = Destination.create(name: "Las Vegas",
-                      zip: "80210" ,
-                      description: "Mile High City",
+                      zip: "9000" ,
+                      description: "Vegas!",
                       image_url: "/" )
   end
   it "and I click on destination, I should be on destination show page" do
     visit root_path
-    save_and_open_page
-    click_on(destination_path(@destination_1.id))
+
+    first(:link, 'Show').click
 
     expect(current_path).to eq(destination_path(@destination_1.id))
   end
 
-  xit "I should see the destination information" do
+  it "I should see the destination information" do
+    visit destination_path(@destination_1.id)
 
+    expect(page).to have_content(@destination_1.name)
+    expect(page).to have_content(@destination_1.zip)
+    expect(page).to have_content(@destination_1.description)
+    expect(page).to have_content("Forecast for #{@destination_1.name}")
   end
 
-  xit "I should see the weather forecast for that destination" do
+  it "I should see the weather forecast for that destination" do
+    visit destination_path(@destination_1.id)
 
+    expect(page).to have_selector('day', count: 10)
+    expect(page).to have_content('weekday')
+    expect(page).to have_content('month')
+    expect(page).to have_content('day')
+    expect(page).to have_content('high temp')
+    expect(page).to have_content('low temp')
+    expect(page).to have_content('weather conditions')
   end
 end
